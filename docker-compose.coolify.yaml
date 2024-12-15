@@ -12,8 +12,6 @@ services:
       - ./zep.yaml:/app/zep.yaml
     environment:
       - ZEP_CONFIG_FILE=zep.yaml
-    networks:
-      - zep-network
     depends_on:
       graphiti:
         condition: service_healthy
@@ -23,8 +21,6 @@ services:
       - "8003:8003"
     env_file:
       - .env
-    networks:
-      - zep-network
     healthcheck:
       test:
         ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8003/healthcheck')"]
@@ -43,8 +39,6 @@ services:
       - PORT=8003
   neo4j:
     image: neo4j:5.22.0
-    networks:
-      - zep-network
     healthcheck:
       test: wget http://localhost:7687 || exit 1
       interval: 1s
@@ -61,6 +55,3 @@ services:
 volumes:
   neo4j_data:
   zep-db:
-networks:
-  zep-network:
-    driver: bridge
