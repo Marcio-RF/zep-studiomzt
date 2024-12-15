@@ -15,5 +15,5 @@ COPY --from=BUILD /app/out/bin/zep /app/
 # Ship with default config that can be overridden by ENV vars
 COPY zep.yaml /app/
 
-EXPOSE 8000
+EXPOSE 8007
 ENTRYPOINT ["/app/zep"]
